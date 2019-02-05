@@ -1,0 +1,14 @@
+{
+  "name": "Forced Entry",
+  "version": "1.0",
+  "description": "Forces you to journal before visiting a website on your blocklist.",
+  "permissions": ["declarativeContent", "storage"],
+  "background": {
+    "scripts": ["background.js", "app.js"],
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "popup.html"
+  },
+  "manifest_version": 2
+}
