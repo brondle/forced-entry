@@ -14,6 +14,10 @@
       "js": ["app.js"],
       "run_at": "document_end"
     }
+   
   ],
+"web_accessible_resources": [
+   "download.js"
+   ],
   "manifest_version": 2
 }

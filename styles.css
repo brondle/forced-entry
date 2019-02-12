@@ -11,7 +11,8 @@
   width: 50%;
   height: 50%;
   z-index 10000000000;
-  top: 20;
+  top: 20px;
+  padding-top: 20px;
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
