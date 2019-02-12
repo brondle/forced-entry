@@ -1,12 +1,6 @@
   chrome.runtime.onInstalled.addListener(function() {
     console.log('extension running');
-    chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-      chrome.declarativeContent.onPageChanged.addRules([{
-        conditions: [new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {hostEquals: 'developer.chrome.com'},
-        })
-        ],
-            actions: [new chrome.declarativeContent.ShowPageAction()]
-      }]);
+    chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
+      console.log("running etension");
     });
    });

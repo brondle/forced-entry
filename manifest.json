@@ -4,11 +4,16 @@
   "description": "Forces you to journal before visiting a website on your blocklist.",
   "permissions": ["declarativeContent", "storage"],
   "background": {
-    "scripts": ["background.js", "app.js"],
+    "scripts": ["background.js"],
     "persistent": false
   },
-  "page_action": {
-    "default_popup": "popup.html"
-  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.facebook.com/*", "*://*.twitter.com/*"],
+      "css": ["styles.css"],
+      "js": ["app.js"],
+      "run_at": "document_end"
+    }
+  ],
   "manifest_version": 2
 }
