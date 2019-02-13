@@ -11,14 +11,20 @@
 }
 
 #entry {
-  width: 50%;
+  width: 40%;
+  text-transform: lowercase;
   max-height: 75%;
   z-index 10000000000;
-  margin: 20px auto;
+  margin: 40px auto;
   padding: 20px 0;
-  border-radius: 25px;
+  border-radius: 15px;
   background-color: white;
   text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: rgba(0, 102, 255, 0.9);
+  color: white;
+;
 }
 
 .hidden {
@@ -27,4 +33,15 @@
 
 #entry textarea {
   margin: 10px 0;
+  width: 70%;
+  height: 200px;
+}
+
+#entry .button {
+  color: black;
+  text-transform: lowercase;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
 }

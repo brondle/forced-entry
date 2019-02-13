@@ -1,49 +1,48 @@
 function downloadEntry(event) {
   let action = document.activeElement.id; //get id of submit button used
   event.stopPropagation();
-  console.log('donwloading entry')
   event.preventDefault();
+  // get and concat date info for entry title
   let dateOb = new Date();
   let date = dateOb.getDate();
   let month = dateOb.getMonth();
   let year = dateOb.getFullYear();
 
   let dateString = date + "_" + (month + 1) + "_" + year;
-
+  //get input content
   let inputs = event.target.getElementsByTagName("textarea");
+  //write content to javascript template
   let content = `${dateString}: \n Feelings:\n ${inputs[0].value}\n Why:\n ${inputs[1].value}\n Conclusion:\n ${inputs[2].value}`;
-  // commenting out ofr testing  formatAndSave(`journal_entry_${dateString}`, content);
+  formatAndSave(`journal_entry_${dateString}`, content);
   if (action  === "stay") {
+    //if user wants to stay on page, remove the blocker
     removeBlocker();
   }
   if (action === "go") {
+    //if user has changed their mind, close the tab
     window.postMessage({ greeting: "close" });
   }
  }
 
 //fixme this is gross
+// basically confirms that current visible textarea has met character limit, hides it, then shows the next one. at end all are visible for edits (not sure if this is desirable behavior or not but i usually like to edit mine once i've had time to think?)
 let complete = 0;
 function nextStep() {
   let inputs = document.getElementById("entry").getElementsByClassName("parent");
   Array.from(inputs).forEach((i, index) => {
-    console.log('i: ', i);
     let textArray = i.getElementsByTagName("textarea");
     if (textArray.length) {
       let textArea = textArray[0];
-      console.log('text area: ', textArea.value);
-      console.log('attributes: ', textArea.attributes);
-      console.log(i.style.display);
+      console.log('length: ', textArea.value.length);
+      console.log(textArea.attributes.minlength.value);
       if (!i.classList.contains('hidden') && textArea.value.length >= textArea.attributes.minlength.value) {
         i.className += ' hidden';
         inputs[index + 1].classList.remove('hidden');
         complete++;
       }
     }
-    console.log('complete: ', complete)
     if (complete >=3) {
-      Array.from(inputs).forEach((i) => {
-        i.style.display = 'block';
-      })
+      Array.from(inputs)[inputs.length-1].style.display = 'block';
       document.getElementById('next').style.display = 'none';
     }
   })
