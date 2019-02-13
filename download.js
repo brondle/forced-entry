@@ -1,4 +1,3 @@
-console.log('download script appended');
 function downloadEntry(event) {
   let action = document.activeElement.id; //get id of submit button used
   event.stopPropagation();
@@ -12,10 +11,8 @@ function downloadEntry(event) {
   let dateString = date + "_" + (month + 1) + "_" + year;
 
   let inputs = event.target.getElementsByTagName("textarea");
-  console.log('inputs: ', inputs)
   let content = `${dateString}: \n Feelings:\n ${inputs[0].value}\n Why:\n ${inputs[1].value}\n Conclusion:\n ${inputs[2].value}`;
   // commenting out ofr testing  formatAndSave(`journal_entry_${dateString}`, content);
-  console.log('action: ', action)
   if (action  === "stay") {
     removeBlocker();
   }
@@ -24,8 +21,35 @@ function downloadEntry(event) {
   }
  }
 
+//fixme this is gross
+let complete = 0;
+function nextStep() {
+  let inputs = document.getElementById("entry").getElementsByClassName("parent");
+  Array.from(inputs).forEach((i, index) => {
+    console.log('i: ', i);
+    let textArray = i.getElementsByTagName("textarea");
+    if (textArray.length) {
+      let textArea = textArray[0];
+      console.log('text area: ', textArea.value);
+      console.log('attributes: ', textArea.attributes);
+      console.log(i.style.display);
+      if (!i.classList.contains('hidden') && textArea.value.length >= textArea.attributes.minlength.value) {
+        i.className += ' hidden';
+        inputs[index + 1].classList.remove('hidden');
+        complete++;
+      }
+    }
+    console.log('complete: ', complete)
+    if (complete >=3) {
+      Array.from(inputs).forEach((i) => {
+        i.style.display = 'block';
+      })
+      document.getElementById('next').style.display = 'none';
+    }
+  })
+}
+
 function removeBlocker() {
-  console.log('removing blocker');
   let blocker = document.getElementById("blocker");
   blocker.style.height = 0;
 }
